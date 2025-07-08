@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+option go_package = "github.com/joyrack/kv3600/protobuf";
+
+// Exposed by follower nodes
+service HeartbeatService {
+    // Sends a heartbeat message
+    rpc SendHeartbeat (Heartbeat) returns (HeartbeatAck) {}
+}
+
+// Exposed by leader node
+service RegistrationService {
+    // Used by follower nodes to register themselves with the leader
+    rpc RegisterFollower(Address) returns (RegistrationResponse) {}
+}
+
+// The heartbeat message
+message Heartbeat {
+    int64 sourceId = 1;
+}
+
+// The heartbeat acknowledgement message
+message HeartbeatAck {
+    int64 sourceId = 1;
+}
+
+message Address {
+    string host = 1;
+    string port = 2;
+}
+
+message RegistrationResponse {
+    bool successful = 1;
+}
