@@ -110,6 +110,8 @@ func startProcessAsLeader() {
 	pb.RegisterRegistrationServiceServer(s, &registrationServiceServer{})
 	log.Printf("leader node listening at %v", lis.Addr())
 
+	// TODO: Should probably keep this in a goroutine since this is not the main purpose of the leader node
+
 	if err = s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
